@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "CLI Paper wallet generator for Kryptokrona.",
   "main": "index.js",
+  "bin": {
+    "xkrcwg": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
