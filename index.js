@@ -1,3 +1,4 @@
+const fs = require('fs');
 const WB = require('kryptokrona-wallet-backend-js');
 const readline = require('readline');
 const colors = require('colors');
@@ -37,6 +38,19 @@ async function getWalletInfo(wallet) {
     const privateViewKey = await wallet.getPrivateViewKey(primaryAddress);
     console.log("Private View Key:".green, privateViewKey);
     console.log('');
+
+    // Takes the wallet info and converts it into a JSON string.
+    const walletInfo = {
+        walletAddress: primaryAddress,
+        publicSpendKey,
+        privateSpendKey,
+        mnemonicSeed: seed,
+        privateViewKey
+    };
+
+    const walletInfoString = JSON.stringify(walletInfo);
+
+    return walletInfoString;
 }
 
 // Function to handle user input
@@ -52,10 +66,15 @@ function handleUserInput(wallet) {
         if (choice === '1') {
             try {
                 console.clear();
-                await getWalletInfo(wallet);
-                rl.question('Press Enter to exit: ', () => {
-                    console.log('Exiting..');
+                const walletInfoString = await getWalletInfo(wallet); // Get wallet info
+                rl.question('Do you want to save the wallet info? (1. Yes, 2. No): ', (saveChoice) => {
+                    if (saveChoice === '1') {
+                        fs.writeFileSync("walletinfo.json", walletInfoString); // Write to file
+                        console.log('Succesfully saved wallet info!'.green);
+                        rl.close();
+                    } else if (saveChoice === '2') {
                     rl.close();
+                    }
                 });
             } catch (error) {
                 console.error("Error:", error.message);
