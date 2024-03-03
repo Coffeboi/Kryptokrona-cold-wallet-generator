@@ -1,0 +1,19 @@
+{
+  "name": "cli-cold-wallet-generator",
+  "version": "1.0.0",
+  "description": "CLI Paper wallet generator for Kryptokrona.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bip32": "^4.0.0",
+    "bip39": "^3.1.0",
+    "colors": "^1.4.0",
+    "crypto": "^1.0.1",
+    "elliptic": "^6.5.4",
+    "kryptokrona-wallet-backend-js": "^2.5.4"
+  }
+}
